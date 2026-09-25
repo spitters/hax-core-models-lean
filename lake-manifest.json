@@ -1,0 +1,21 @@
+{
+  "version": "1.2.0",
+  "packagesDir": ".lake/packages",
+  "packages": [
+    {
+      "configFile": "lakefile.toml",
+      "inherited": false,
+      "inputRev": "master",
+      "manifestFile": "lake-manifest.json",
+      "name": "Qq",
+      "rev": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "scope": "leanprover-community",
+      "subDir": null,
+      "type": "git",
+      "url": "https://github.com/leanprover-community/quote4"
+    }
+  ],
+  "name": "haxCoreModels",
+  "lakeDir": ".lake",
+  "fixedToolchain": false
+}
