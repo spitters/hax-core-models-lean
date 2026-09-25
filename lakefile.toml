@@ -1,0 +1,21 @@
+name = "haxCoreModels"
+version = "0.1.0"
+defaultTargets = ["Hax", "HaxCoreModels"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[lean_lib]]
+name = "Hax"
+
+[[lean_lib]]
+name = "HaxCoreModels"
+
+[[require]]
+name = "Qq"
+scope = "leanprover-community"
+git = "https://github.com/leanprover-community/quote4"
+rev = "92c15be17b7caf78c2ad767ec40f89052d908d81"
