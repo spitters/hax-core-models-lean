@@ -31,3 +31,7 @@ modules. The following were added or edited by hand:
 
 `i128` and `u128` are both represented by `BitVec 128` in the prelude, so
 comparisons on `i128` are unsigned.
+- `_mm256_bsrli_epi128` follows the libcrux fix of
+  https://github.com/celabshq/libcrux/pull/1498 (merged 2026-09-29, after the
+  0.0.7 release): a shift count above 15 zeroes each 128-bit lane, as VPSRLDQ
+  does, instead of wrapping modulo 16.

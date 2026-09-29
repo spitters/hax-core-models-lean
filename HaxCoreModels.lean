@@ -2560,11 +2560,13 @@ def _mm256_bsrli_epi128 (IMM8 : i32)
     (u64 -> RustM i128)
     (fun i =>
       (do
-      let tmp : i32 ← (IMM8 %? (256 : i32));
-      let tmp : i32 ← (tmp %? (16 : i32));
-      (Rust_primitives.Hax.cast_op
-        (← ((← (Rust_primitives.Hax.cast_op (β := u128) (← a[i]_?)))
-          >>>? (← (tmp *? (8 : i32)))))) :
+      let imm8 : i32 ← (Core_models.Num.Impl_2.rem_euclid IMM8 (256 : i32));
+      if (← (Rust_primitives.Hax.Machine_int.gt imm8 (15 : i32))) then
+        (pure (0 : i128))
+      else
+        (Rust_primitives.Hax.cast_op
+          (← ((← (Rust_primitives.Hax.cast_op (β := u128) (← a[i]_?)))
+            >>>? (← (imm8 *? (8 : i32)))))) :
       RustM i128)))
 
 def _mm256_andnot_si256
@@ -3587,9 +3589,8 @@ end Core_models.Core_arch.X86.Interpretations.Int_vec.Lemmas
 namespace Core_models.Core_arch.X86.Avx2
 
 --  [Intel Documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm256_bsrli_epi128)
---  NOTE: the bsrli here is different from intel specification. In the intel specification, if an IMM8 is given whose first 8 bits are higher than 15, it fixes it to 16.
---  However, the Rust implementation erroneously takes the input modulo 16. Thus, instead of shifting by 16 bits at an input of 16, it shifts by 0.
---  We are currently modelling the Rust implementation.
+--  NOTE: as in the Intel specification, an IMM8 whose low 8 bits exceed 15 zeroes each 128-bit lane
+--  (the interpretation follows libcrux PR #1498).
 opaque _mm256_bsrli_epi128 (IMM8 : i32)
     (_ : (Core_models.Abstractions.Bitvec.BitVec ((256 : u64)))) :
     RustM (Core_models.Abstractions.Bitvec.BitVec ((256 : u64))) 
