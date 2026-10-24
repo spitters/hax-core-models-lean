@@ -8,7 +8,7 @@
       "inputRev": "master",
       "manifestFile": "lake-manifest.json",
       "name": "Qq",
-      "rev": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "rev": "dce0ad79c486cb1fb504af04f953c3466b0c6db8",
       "scope": "leanprover-community",
       "subDir": null,
       "type": "git",
